@@ -28,3 +28,19 @@ from(
 GROUP BY RowNumber;
 
 */
+
+set @row1 = 0, @row2 = 0, @row3 = 0, @row4 = 0;
+SELECT min(Doctor), min(Professor), min(Singer), min(Actor)
+FROM(
+    SELECT CASE WHEN OCCUPATION='Doctor' THEN (@row1:=@row1+1)
+        WHEN OCCUPATION='Professor' THEN (@row2:=@row2+1)
+        WHEN OCCUPATION='Singer' THEN (@row3:=@row3+1)
+        WHEN OCCUPATION='Actor' THEN (@row4:=@row4+1) END AS RowNumbers,
+    CASE WHEN OCCUPATION= 'Doctor' THEN NAME END AS Doctor,
+    CASE WHEN OCCUPATION= 'Professor' THEN NAME END AS Professor,
+    CASE WHEN OCCUPATION= 'Singer' THEN NAME END AS Singer,
+    CASE WHEN OCCUPATION= 'Actor' THEN NAME END AS Actor
+    FROM OCCUPATIONS
+    ORDER BY NAME
+) Alias
+GROUP BY RowNumbers;
