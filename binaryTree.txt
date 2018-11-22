@@ -1,0 +1,9 @@
+SELECT N, 
+/* Gets the node number*/
+
+IF(P IS NULL, 'Root', 
+/* Check to see if the parent node is NULL. If so, then it's the root (as it has no parent.) */
+            IF((SELECT COUNT(*) FROM BST WHERE P = B.N)>0, 'Inner', 'Leaf')) 
+/* Check to see if a parent node exists, or if the COUNT from the table where parent nodes equal the node number, then it must be an inner node. Otherwise it's a leaf. */     
+            FROM BST AS B
+ORDER BY N;
