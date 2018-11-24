@@ -7,14 +7,15 @@ Hackers: The hacker_id is the id of the hacker, and name is the name of the hack
 
 Challenges: The challenge_id is the id of the challenge, and hacker_id is the id of the student who created the challenge. 
 
+
+
 */
-
-
 
 SELECT h.hacker_id, h.name, COUNT(c.hacker_id) AS c_count
 FROM Hackers AS h
 JOIN Challenges AS c
 ON h.hacker_id = c.hacker_id
+GROUP BY c.hacker_id, h.name
 HAVING c_count =
 (SELECT MAX(temp1.cnt) FROM
     (SELECT COUNT(hacker_id) AS cnt 
